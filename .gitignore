@@ -10,3 +10,5 @@ logs/*
 .git/*
 .venv/*
 
+nerf/data/**
+nerf/logs/**

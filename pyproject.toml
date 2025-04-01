@@ -5,7 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "configargparser>=0.0.2",
+    "configargparse>=1.7",
     "imageio>=2.37.0",
     "imageio-ffmpeg>=0.6.0",
     "matplotlib>=3.10.1",

@@ -73,10 +73,13 @@ wheels = [
 ]
 
 [[package]]
-name = "configargparser"
-version = "0.0.2"
+name = "configargparse"
+version = "1.7"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/52/28/0213358e1becda4294ed54f74e307ee0bdbe6f3a48f7a92c7232a1b6b184/configargparser-0.0.2.tar.gz", hash = "sha256:d970ddf1a1579c7b09221ba6660980242db19daec6994360ce6de2f0ffb14c3d", size = 2440 }
+sdist = { url = "https://files.pythonhosted.org/packages/70/8a/73f1008adfad01cb923255b924b1528727b8270e67cb4ef41eabdc7d783e/ConfigArgParse-1.7.tar.gz", hash = "sha256:e7067471884de5478c58a511e529f0f9bd1c66bfef1dea90935438d6c23306d1", size = 43817 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/6f/b3/b4ac838711fd74a2b4e6f746703cf9dd2cf5462d17dac07e349234e21b97/ConfigArgParse-1.7-py3-none-any.whl", hash = "sha256:d249da6591465c6c26df64a9f73d2536e743be2f244eb3ebe61114af2f94f86b", size = 25489 },
+]
 
 [[package]]
 name = "contourpy"
@@ -518,7 +521,7 @@ name = "nerf-umc203"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
-    { name = "configargparser" },
+    { name = "configargparse" },
     { name = "imageio" },
     { name = "imageio-ffmpeg" },
     { name = "matplotlib" },
@@ -529,7 +532,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "configargparser", specifier = ">=0.0.2" },
+    { name = "configargparse", specifier = ">=1.7" },
     { name = "imageio", specifier = ">=2.37.0" },
     { name = "imageio-ffmpeg", specifier = ">=0.6.0" },
     { name = "matplotlib", specifier = ">=3.10.1" },

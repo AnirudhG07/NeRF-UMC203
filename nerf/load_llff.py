@@ -1,6 +1,7 @@
-import numpy as np
-import os, imageio
+import os
 
+import imageio
+import numpy as np
 
 ########## Slightly modified version of LLFF data loading code 
 ##########  see https://github.com/Fyusion/LLFF for original
@@ -18,7 +19,6 @@ def _minify(basedir, factors=[], resolutions=[]):
     if not needtoload:
         return
     
-    from shutil import copy
     from subprocess import check_output
     
     imgdir = os.path.join(basedir, 'images')
@@ -107,7 +107,7 @@ def _load_data(basedir, factor=None, width=None, height=None, load_imgs=True):
     
     def imread(f):
         if f.endswith('png'):
-            return imageio.imread(f, ignoregamma=True)
+            return imageio.imread(f)
         else:
             return imageio.imread(f)
         

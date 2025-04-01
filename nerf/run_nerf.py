@@ -1,18 +1,17 @@
 import os
+
 os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
 
-import sys
-import tensorflow as tf
-import numpy as np
-import imageio
-import json
-import random
 import time
-from run_nerf_helpers import *
-from load_llff import load_llff_data
-from load_deepvoxels import load_dv_data
-from load_blender import load_blender_data
 
+import configargparse
+import imageio
+import numpy as np
+import tensorflow as tf
+from load_blender import load_blender_data
+from load_deepvoxels import load_dv_data
+from load_llff import load_llff_data
+from run_nerf_helpers import *
 
 tf.compat.v1.enable_eager_execution()
 
@@ -460,7 +459,6 @@ def create_nerf(args):
 
 def config_parser():
 
-    import configargparse
     parser = configargparse.ArgumentParser()
     parser.add_argument('--config', is_config_file=True,
                         help='config file path')

@@ -1,10 +1,6 @@
-import os
-import sys
-import tensorflow as tf
-import numpy as np
-import imageio
-import json
 
+import numpy as np
+import tensorflow as tf
 
 # Misc utils
 
@@ -87,7 +83,7 @@ def init_nerf_model(D=8, W=256, input_ch=3, input_ch_views=3, output_ch=4, skips
     input_ch = int(input_ch)
     input_ch_views = int(input_ch_views)
 
-    inputs = tf.keras.Input(shape=(input_ch + input_ch_views))
+    inputs = tf.keras.Input(shape=(input_ch + input_ch_views,))
     inputs_pts, inputs_views = tf.split(inputs, [input_ch, input_ch_views], -1)
     inputs_pts.set_shape([None, input_ch])
     inputs_views.set_shape([None, input_ch_views])
