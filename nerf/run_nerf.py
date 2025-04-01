@@ -829,13 +829,17 @@ def train():
         #####           end            #####
 
         # Rest is logging
-
         def save_weights(net, prefix, i):
-            path = os.path.join(
-                basedir, expname, '{}_{:06d}.npy'.format(prefix, i))
-            np.save(path, net.get_weights())
-            print('saved weights at', path)
+            if not isinstance(net, tf.keras.Model):  # Ensure net is a Keras model
+                print(f"Skipping save_weights for {prefix}: not a model.")
+                return
+            
+            path = os.path.join(basedir, expname, '{}_{:06d}.npz'.format(prefix, i))
+            np.savez(path, *net.get_weights())  # Save model weights
+            print('Saved weights at', path)
 
+
+        summary_writer = tf.summary.create_file_writer(os.path.join(basedir, expname, "logs"))
         if i % args.i_weights == 0:
             for k in models:
                 save_weights(models[k], k, i)
@@ -873,12 +877,13 @@ def train():
 
             print(expname, i, psnr.numpy(), loss.numpy(), global_step.numpy())
             print('iter time {:.05f}'.format(dt))
-            with tf.summary.record_summaries_every_n_global_steps(args.i_print):
-                tf.summary.scalar('loss', loss)
-                tf.summary.scalar('psnr', psnr)
-                tf.summary.histogram('tran', trans)
+            with summary_writer.as_default():
+                tf.summary.record_if(global_step.numpy() % args.i_print == 0 or i < 10)
+                tf.summary.scalar('loss', loss, step=global_step)
+                tf.summary.scalar('psnr', psnr, step=global_step)
+                tf.summary.histogram('tran', trans, step=global_step)
                 if args.N_importance > 0:
-                    tf.summary.scalar('psnr0', psnr0)
+                    tf.summary.scalar('psnr0', psnr0, step=global_step)
 
             if i % args.i_img == 0:
 
@@ -898,28 +903,20 @@ def train():
                     os.makedirs(testimgdir, exist_ok=True)
                 imageio.imwrite(os.path.join(testimgdir, '{:06d}.png'.format(i)), to8b(rgb))
 
-                with tf.summary.record_summaries_every_n_global_steps(args.i_img):
+                tf.summary.record_if(global_step.numpy() % args.i_img == 0)
 
-                    tf.summary.image('rgb', to8b(rgb)[tf.newaxis])
-                    tf.summary.image(
-                        'disp', disp[tf.newaxis, ..., tf.newaxis])
-                    tf.summary.image(
-                        'acc', acc[tf.newaxis, ..., tf.newaxis])
-
-                    tf.summary.scalar('psnr_holdout', psnr)
-                    tf.summary.image('rgb_holdout', target[tf.newaxis])
+                tf.summary.image('rgb', to8b(rgb)[tf.newaxis], step=global_step)
+                tf.summary.image('disp', disp[tf.newaxis, ..., tf.newaxis], step=global_step)
+                tf.summary.image('acc', acc[tf.newaxis, ..., tf.newaxis], step=global_step)
+                tf.summary.scalar('psnr_holdout', psnr, step=global_step)
+                tf.summary.image('rgb_holdout', target[tf.newaxis], step=global_step)
 
                 if args.N_importance > 0:
+                    tf.summary.image('rgb0', to8b(extras['rgb0'])[tf.newaxis], step=global_step)
+                    tf.summary.image('disp0', extras['disp0'][tf.newaxis, ..., tf.newaxis], step=global_step)
+                    tf.summary.image('z_std', extras['z_std'][tf.newaxis, ..., tf.newaxis], step=global_step)
 
-                    with tf.summary.record_summaries_every_n_global_steps(args.i_img):
-                        tf.summary.image(
-                            'rgb0', to8b(extras['rgb0'])[tf.newaxis])
-                        tf.summary.image(
-                            'disp0', extras['disp0'][tf.newaxis, ..., tf.newaxis])
-                        tf.summary.image(
-                            'z_std', extras['z_std'][tf.newaxis, ..., tf.newaxis])
-
-        global_step.assign_add(1)
+                    global_step.assign_add(1)
 
 
 if __name__ == '__main__':
