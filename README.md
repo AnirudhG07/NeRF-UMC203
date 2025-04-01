@@ -18,4 +18,25 @@ and synthetic view generation.
 
 ## Environment Setup
 
-TBD
+Since the project uses python3.7 which is very outdated, we will use python3.12. Also for more convenience and faster implementation, please use [uv](https://docs.astral.sh/uv/getting-started/installation/) python package manager. Why use this? Cause it's very FAST!
+
+### Setting up
+
+1. Run the below commands to set python3 environment -
+
+```bash
+uv venv --python 3.12.9
+uv init
+```
+
+2. Add the dependencies from the `requirements.txt` file using -
+
+```bash
+uv pip install -r requirements.txt
+```
+
+3. Now you can source the python `.venv` environment using the below command -
+
+```bash
+source .venv/bin/activate
+```

@@ -1,0 +1,8 @@
+## Requirements for project
+
+configargparse>=1.7
+imageio>=2.37.0
+imageio-ffmpeg>=0.6.0
+matplotlib>=3.10.1
+numpy==1.26.4
+tensorflow>=2.18.1
