@@ -1,11 +1,9 @@
-import os
-import tensorflow as tf
-import numpy as np
-import imageio 
 import json
+import os
 
-
-
+import imageio
+import numpy as np
+import tensorflow as tf
 
 trans_t = lambda t : tf.convert_to_tensor([
     [1,0,0,0],
@@ -78,11 +76,13 @@ def load_blender_data(basedir, half_res=False, testskip=1):
     
     render_poses = tf.stack([pose_spherical(angle, -30.0, 4.0) for angle in np.linspace(-180,180,40+1)[:-1]],0)
     
+
     if half_res:
-        imgs = tf.image.resize_area(imgs, [400, 400]).numpy()
-        H = H//2
-        W = W//2
-        focal = focal/2.
+        imgs = tf.image.resize(imgs, [400, 400], method=tf.image.ResizeMethod.AREA).numpy()
+        H = H // 2
+        W = W // 2
+        focal = focal / 2.
+
         
     return imgs, poses, render_poses, [H, W, focal], i_split
 
