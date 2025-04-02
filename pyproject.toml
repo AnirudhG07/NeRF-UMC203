@@ -3,15 +3,5 @@ name = "nerf-umc203"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.12"
-dependencies = [
-    "configargparse>=1.7",
-    "imageio>=2.37.0",
-    "imageio-ffmpeg>=0.6.0",
-    "matplotlib>=3.10.1",
-    "numpy==1.26.4",
-    "pymcubes>=0.1.6",
-    "pyrender>=0.1.45",
-    "tensorflow>=2.18.1",
-    "trimesh>=4.6.6",
-]
+requires-python = ">=3.10"
+dependencies = []

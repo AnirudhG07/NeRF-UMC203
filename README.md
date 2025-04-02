@@ -18,14 +18,14 @@ and synthetic view generation.
 
 ## Environment Setup
 
-Since the project uses python3.7 which is very outdated, we will use python3.12. Also for more convenience and faster implementation, please use [uv](https://docs.astral.sh/uv/getting-started/installation/) python package manager. Why use this? Cause it's very FAST!
+Since the project uses python3.7 which is very outdated, we will use python3.10. Also for more convenience and faster implementation, please use [uv](https://docs.astral.sh/uv/getting-started/installation/) python package manager. Why use this? Cause it's very FAST!
 
 ### Setting up
 
 1. Run the below commands to set python3 environment -
 
 ```bash
-uv venv --python 3.12.9
+uv venv --python 3.10
 uv init
 ```
 
