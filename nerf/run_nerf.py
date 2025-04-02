@@ -10,7 +10,7 @@ from load_deepvoxels import load_dv_data
 from load_llff import load_llff_data
 from run_nerf_helpers import *
 
-# os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
+os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
 tf.compat.v1.enable_eager_execution()
 
 
@@ -442,7 +442,9 @@ def create_nerf(args):
     if len(ckpts) > 0 and not args.no_reload:
         ft_weights = ckpts[-1]
         print('Reloading from', ft_weights)
-        model.set_weights(np.load(ft_weights, allow_pickle=True))
+        weights_data = np.load(ft_weights, allow_pickle=True)
+        weights = [weights_data[key] for key in weights_data.files]
+        model.set_weights(weights)
         start = int(ft_weights[-10:-4]) + 1
         print('Resetting step to', start)
 
@@ -450,7 +452,9 @@ def create_nerf(args):
             ft_weights_fine = '{}_fine_{}'.format(
                 ft_weights[:-11], ft_weights[-10:])
             print('Reloading fine from', ft_weights_fine)
-            model_fine.set_weights(np.load(ft_weights_fine, allow_pickle=True))
+            weights_data_fine = np.load(ft_weights_fine, allow_pickle=True)
+            weights_fine = [weights_data_fine[key] for key in weights_data_fine.files]
+            model_fine.set_weights(weights_fine)
 
     return render_kwargs_train, render_kwargs_test, start, grad_vars, models
 
