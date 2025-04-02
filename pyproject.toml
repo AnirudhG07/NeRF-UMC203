@@ -10,5 +10,8 @@ dependencies = [
     "imageio-ffmpeg>=0.6.0",
     "matplotlib>=3.10.1",
     "numpy==1.26.4",
+    "pymcubes>=0.1.6",
+    "pyrender>=0.1.45",
     "tensorflow>=2.18.1",
+    "trimesh>=4.6.6",
 ]
