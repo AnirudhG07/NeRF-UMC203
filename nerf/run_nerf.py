@@ -11,6 +11,7 @@ from load_llff import load_llff_data
 from run_nerf_helpers import *
 
 os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
+os.environ['TF_GPU_ALLOCATOR'] = 'cuda_malloc_async'
 tf.compat.v1.enable_eager_execution()
 
 
@@ -104,8 +105,9 @@ def render_rays(ray_batch,
         """
         # Function for computing density from model prediction. This value is
         # strictly between [0, 1].
-        def raw2alpha(raw, dists, act_fn=tf.nn.relu): return 1.0 - \
-            tf.exp(-act_fn(raw) * dists)
+        def raw2alpha(raw, dists, act_fn=tf.nn.relu, min_alpha = 1e-6):
+            alpha = 1.0 - tf.exp(-act_fn(raw) * dists)
+            return tf.maximum(alpha, min_alpha)
 
         # Compute 'distance' (in time) between each integration time along a ray.
         dists = z_vals[..., 1:] - z_vals[..., :-1]
@@ -562,7 +564,7 @@ def config_parser():
                         help='frequency of console printout and metric loggin')
     parser.add_argument("--i_img",     type=int, default=500,
                         help='frequency of tensorboard image logging')
-    parser.add_argument("--i_weights", type=int, default=10000,
+    parser.add_argument("--i_weights", type=int, default=1000,
                         help='frequency of weight ckpt saving')
     parser.add_argument("--i_testset", type=int, default=50000,
                         help='frequency of testset saving')
@@ -743,7 +745,7 @@ def train():
         print('done')
         i_batch = 0
 
-    N_iters = 1000000
+    N_iters = 260000
     print('Begin')
     print('TRAIN views are', i_train)
     print('TEST views are', i_test)
