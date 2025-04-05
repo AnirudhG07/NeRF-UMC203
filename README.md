@@ -40,3 +40,16 @@ uv pip install -r requirements.txt
 ```bash
 source .venv/bin/activate
 ```
+
+## Our Dataset - Wifiroom
+
+We have clicked pictures of OPB Wifiroom as our own test-dataset. This include 45 pictures taken at similar angle, meant to replicate `llff_fern` dataset. You can find this dataset on [wifiroom_db](https://github.com/AnirudhG07/NeRF-UMC203/releases/tag/wifiroom_db) release.
+
+## Outputs Obtained
+
+We have run the below datasets on nerf to test and see the results of the outputs by ourselves. The outputs of these have been saved as `.zip` on [outputs_db](https://github.com/AnirudhG07/NeRF-UMC203/releases/tag/outputs_db) release. These include:
+
+- Fern Example Dataset
+- Lego Example Configuration
+- Lego Paper Configuration
+- Wifiroom Dataset
