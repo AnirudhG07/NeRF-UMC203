@@ -45,7 +45,12 @@ source .venv/bin/activate
 
 We have clicked pictures of OPB Wifiroom as our own test-dataset. This include 45 pictures taken at similar angle, meant to replicate `llff_fern` dataset. You can find this dataset on [wifiroom_db](https://github.com/AnirudhG07/NeRF-UMC203/releases/tag/wifiroom_db) release.
 
-Now, we ran `[imgs2poses.py](https://github.com/Fyusion/LLFF/blob/master/imgs2poses.py)` using `colmap` command(as recommended and needed for `llff` type datasets), which created other needed which includes `database.db`, `colmap_output.txt` `poses_bounds.npy`, etc.
+- Now, we ran `[imgs2poses.py](https://github.com/Fyusion/LLFF/blob/master/imgs2poses.py)` using `colmap` command(as recommended and needed for `llff` type datasets), which created other needed which includes `database.db`, `colmap_output.txt` `poses_bounds.npy`, etc.
+
+- The configurations set for running this is similar to Fern configurations. Note that we couldn't change the configurations much due to limited GPU,vRAN present with us.
+
+Check out the `wifiroom_output.zip` in [outputs_db](https://github.com/AnirudhG07/NeRF-UMC203/releases/tag/outputs_db) release to see the results obtained.
+
 
 ## Outputs Obtained
 
