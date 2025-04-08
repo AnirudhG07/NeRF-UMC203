@@ -1,8 +1,6 @@
 import os
 import subprocess
 
-
-
 # $ DATASET_PATH=/path/to/dataset
 
 # $ colmap feature_extractor \
@@ -35,6 +33,7 @@ def run_colmap(basedir, match_type):
     feat_output = ( subprocess.check_output(feature_extractor_args, universal_newlines=True) )
     logfile.write(feat_output)
     print('Features extracted')
+    print(match_type)
 
     exhaustive_matcher_args = [
         'colmap', match_type, 

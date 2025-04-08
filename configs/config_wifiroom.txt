@@ -1,8 +1,8 @@
 # This is similar to configs for "FERN"
 
 expname = wifiroom
-basedir = ./logs
-datadir = ./data/nerf_wifiroom/wifiroom
+basedir = ../nerf/logs
+datadir = ../nerf/data/nerf_wifiroom/wifiroom
 dataset_type = llff
 factor = 8
 llffhold = 8
