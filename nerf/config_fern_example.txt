@@ -5,6 +5,7 @@ dataset_type = llff
 
 factor = 8
 llffhold = 8
+no_batching = True
 
 N_rand = 1024
 N_samples = 32

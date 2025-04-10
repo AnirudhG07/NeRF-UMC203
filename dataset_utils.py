@@ -48,6 +48,7 @@ def delete_alternate(image_folder):
     print("Alternate images deleted successfully.")
 
 if __name__ == "__main__":
-    image_folder = "" 
+    image_folder = "./nerf/data/nerf_jnt_statue_half/jnt_statue/images" 
+    delete_alternate(image_folder)
     rename_imgs_ascending(image_folder)
 
