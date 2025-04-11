@@ -9,3 +9,10 @@ tensorflow>=2.18.1
 pymcubes>=0.1.6
 pyrender>=0.1.45
 trimesh>=4.6.6
+
+gin-config
+jax
+jaxlib
+flax
+opencv-python
+jax[cuda12]

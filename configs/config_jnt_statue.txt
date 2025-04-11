@@ -2,7 +2,7 @@
 
 expname = jnt_statue
 basedir = ../nerf/logs
-datadir = ../nerf/data/nerf_jnt_statue_180/jnt_statue
+datadir = ../nerf/data/nerf_jnt_statue_360/jnt_statue
 dataset_type = llff
 factor = 8
 llffhold = 8
