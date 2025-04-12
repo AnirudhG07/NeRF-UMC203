@@ -147,6 +147,19 @@ Thus positional encoding help in increasing the quality of the output and also h
 
 Where `x` is the input coordinate and `L` is the number of frequency bands.
 
+# Getting the RGB colors.
+
+The RGB color of each pixel is obtained at the last layer in the MLP. It uses inputs such as `σ` (volume density) and `d` (viewing direction). The output is a 3D vector of RGB values. The MLP is trained to minimize the difference between the predicted RGB values and the ground truth RGB values from the images, using the loss (see paper).
+
+## Method to get the color
+
+- From the ray, `r(t) = o + t*d`, and near/far bounds, we have to solve an integral `C(r)` which contained terms like `T(t)`, `σ(r(t))`, `c(r(t))`.
+
+- `T(t)` is transmittance. The farther you move along the ray, the higher the probability that the ray is absorbed within the scene. More the particles in a position, more it is absorbed. Consequently, the transmittance is determined by the negative exponent of the cumulative volumetric density integrated from the near plane to the point t where the transmittance is being calculated.
+
+- `σ(r(t))` (volume density at `r(t)`) and can be interpreted as the probability that the point contains material capable of emitting or reflecting light.
+- `c(r(t))` is the color at `r(t)` and is a function of the viewing direction.
+
 # Volume Rendering
 
 Rays at each pixel site project into the 3D space at a given viewing direction perpendicular to the image/camera plane and are used to represent the volume or occupancy of the space along the ray. The volume density of the pixel is determined by taking the integral of volumes along the ray; this process is known as `volume rendering`.
@@ -166,3 +179,5 @@ Although discrete samples are used to estimate integral, statified sampling enab
 - [Understanding-nerfs Blog](https://cameronrwolfe.substack.com/p/understanding-nerfs)
 - [viso.ai](https://viso.ai/deep-learning/neural-radiance-fields/)
 - [NeRF: A Review and Some Recent Developments](https://arxiv.org/pdf/2305.00375)
+- [medium.com/A beginner's 12 Step Guide to Understanding-nerfs](https://medium.com/data-science/a-12-step-visual-guide-to-understanding-nerf-representing-scenes-as-neural-radiance-fields-24a36aef909a)
+- [Volume Rendering Math](https://arxiv.org/pdf/2209.02417)
