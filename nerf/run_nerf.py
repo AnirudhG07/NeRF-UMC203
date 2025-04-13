@@ -1,3 +1,4 @@
+import csv
 import os
 import time
 
@@ -751,6 +752,11 @@ def train():
     print('TEST views are', i_test)
     print('VAL views are', i_val)
 
+    psnr_loss_path = os.path.join(basedir, expname, 'psnr_loss.csv')
+    if not os.path.exists(psnr_loss_path):
+        with open(psnr_loss_path, "w", newline="") as f:
+            csv_writer = csv.writer(f)
+            csv_writer.writerow(["iteration", "psnr", "loss"])
     # Summary writers
     writer = tf.summary.create_file_writer(
         os.path.join(basedir, 'summaries', expname))
@@ -824,6 +830,12 @@ def train():
                 img_loss0 = img2mse(extras['rgb0'], target_s)
                 loss += img_loss0
                 psnr0 = mse2psnr(img_loss0)
+
+            # Store psnr and loss vs iteration in csv
+            if i % args.i_weights == 0:
+                with open(psnr_loss_path, "a", newline="") as f:
+                    csv_writer = csv.writer(f)
+                    csv_writer.writerow([i, psnr.numpy(), loss.numpy()])
 
         gradients = tape.gradient(loss, grad_vars)
         optimizer.apply_gradients(zip(gradients, grad_vars))
