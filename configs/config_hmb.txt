@@ -1,0 +1,19 @@
+# This is similar to configs for "FERN"
+
+expname = hmb
+basedir = ../nerf/logs
+datadir = ../../data/nerf_hmb/hmb
+dataset_type = llff
+factor = 8
+llffhold = 8
+no_batching = True
+
+N_rand = 1024
+N_samples = 32
+N_importance = 64
+
+lrate_decay = 250
+
+use_viewdirs = True
+raw_noise_std = 1e0
+
