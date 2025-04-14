@@ -832,7 +832,7 @@ def train():
                 psnr0 = mse2psnr(img_loss0)
 
             # Store psnr and loss vs iteration in csv
-            if i % args.i_weights == 0:
+            if i % args.i_print == 0:
                 with open(psnr_loss_path, "a", newline="") as f:
                     csv_writer = csv.writer(f)
                     csv_writer.writerow([i, psnr.numpy(), loss.numpy()])
