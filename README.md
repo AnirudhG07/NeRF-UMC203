@@ -41,18 +41,17 @@ uv pip install -r requirements.txt
 source .venv/bin/activate
 ```
 
-## Our Dataset - Wifiroom
+## Our Dataset 
 
-We have clicked pictures of OPB Wifiroom as our own test-dataset. This include 45 pictures taken at similar angle, meant to replicate `llff_fern` dataset. You can find this dataset on [wifiroom_db](https://github.com/AnirudhG07/NeRF-UMC203/releases/tag/wifiroom_db) release.
+We have created 3 datasets using our camera. These are all mainly LLFF Type datasets. These include - 
 
-- Now, we ran `[imgs2poses.py](https://github.com/Fyusion/LLFF/blob/master/imgs2poses.py)` using `colmap` command(as recommended and needed for `llff` type datasets), which created other needed which includes `database.db`, `colmap_output.txt` `poses_bounds.npy`, etc.
+- 1. Wifiroom Dataset 
+- 2. Humanities Project Dataset(HMB)
+- 3. JNT Statue Dataset(JNTS)
 
-- The configurations set for running this is similar to Fern configurations. Note that we couldn't change the configurations much due to limited GPU,vRAN present with us.
+Check out [Releases](https://github.com/AnirudhG07/NeRF-UMC203/releases) to see the datasets and a detailed account on how they made.
 
-Check out the `wifiroom_output.zip` in [outputs_db](https://github.com/AnirudhG07/NeRF-UMC203/releases/tag/outputs_db) release to see the results obtained.
-
-
-## Outputs Obtained
+## Outputs Obtained from NeRF-Orig
 
 We have run the below datasets on nerf to test and see the results of the outputs by ourselves. The outputs of these have been saved as `.zip` on [outputs_db](https://github.com/AnirudhG07/NeRF-UMC203/releases/tag/outputs_db) release. These include:
 
@@ -60,3 +59,15 @@ We have run the below datasets on nerf to test and see the results of the output
 - Lego Example Configuration
 - Lego Paper Configuration
 - Wifiroom Dataset
+- HMB Dataset
+- JNT one-side Dataset
+
+## How to reproduce our results
+We assume you have created the environment as above. Download the dataset from Releases or any online source. The folder structure should look like-
+
+```
+
+
+```
+
+Now you can use the config files present in [configs/](./configs/) and run the below command - 
