@@ -41,11 +41,11 @@ uv pip install -r requirements.txt
 source .venv/bin/activate
 ```
 
-## Our Dataset 
+## Our Dataset
 
-We have created 3 datasets using our camera. These are all mainly LLFF Type datasets. These include - 
+We have created 3 datasets using our camera. These are all mainly LLFF Type datasets. These include -
 
-- 1. Wifiroom Dataset 
+- 1. Wifiroom Dataset
 - 2. Humanities Project Dataset(HMB)
 - 3. JNT Statue Dataset(JNTS)
 
@@ -63,11 +63,75 @@ We have run the below datasets on nerf to test and see the results of the output
 - JNT one-side Dataset
 
 ## How to reproduce our results
+
 We assume you have created the environment as above. Download the dataset from Releases or any online source. The folder structure should look like-
 
 ```
-
-
+dataset_name/
+    images/
+        image1.png
+        image2.png
+        ...
+    poses_bounds.npy
+    database.db
+    colmap_output.txt
 ```
 
-Now you can use the config files present in [configs/](./configs/) and run the below command - 
+Now you can use the config files present in [configs/](./configs/) and run the below command -
+
+```bash
+python nerf/run_nerf.py --config configs/dataset_name.txt
+```
+
+This will automatically run the dataset and create a `logs/` folder in the current directory which will contain the outputs of the dataset. This should take about 15-18 hours on GPU for 200K-250K iterations. The outputs will include a depth, rgb and rgb_spiral video.mp4 files.
+
+### How to produce camera poses for custom dataset
+
+You can use [COLMAP](https://colmap.github.io/) to produce the camera poses for your custom dataset. Simply run `colmap gui`, Goto Automatic Reconstruction and select the folder containing the images, and run with defaults. You can select `Video Frames` if you extracted frames from a video using `ffmpeg`.
+
+## PSNR Metric analysis
+
+The `run_nerf.py` contains a script which will provide the value of `psnr` and `loss` calculated at each iteration by the model. We save this in a `psnr_loss.csv` file, which stores the same every 1000 iterations. You can then run the below to obtain the graphical results.
+
+```bash
+python3 metric_analysis.py /path/to/psnr_loss.csv
+```
+
+The graphs include `psnr vs iterations`, `loss vs iterations` and `log loss vs iterations` graph. Since NeRF algorithm converges, after 200K iterations you will see a band of convergence in the graphs, in all 3 graphs.
+
+## Comparing performance with change in positional encoding Parameters(L)
+
+NeRF uses `L(γ(x), γ(d)) = (10, 4)` by default, which can be change by adding additional parameters to `(20,6)` as -
+
+```bash
+python3 nerf/run_nerf.py --config configs/dataset_name.txt --multires 20 --multires_views 6
+```
+
+To compare the performance of the new video, you can run a comparative analysis using the below command. You will have to go and give 3 video files inside the python file, which are the 2 new NeRF video generated you want to compare and a ground truth video.
+
+```bash
+python3 metric_analysis/psnr_gt_nerfvids.py
+```
+
+This code will generate frames for the 2 videos and groundtruth again, find PSNR values for 2 videos and plot a graph comparing all 3 metrics. Note that you might have to change `fps` of the images so that the shape matches. For HMB dataset, we have chosen first 90 images at `3fps`.
+
+## Running Gaussian Splatting
+
+We have also run the Gaussian Splatting algorithm on the datasets. Refer [gaussian_splatting](https://github.com/graphdeco-inria/gaussian-splatting) for installation instructions. You can also use `gaussian_splatting.sh` file to see installation instruction using `uv` package manager.
+
+We have run the Gaussian Splatting on HMB, JNTS and Wifiroom datasets. The outputs can be found in the [output_db](https://github.com/AnirudhG07/NeRF-UMC203/releases/tag/outputs_db) releases.
+
+## Running nerfacto
+
+Nerfacto is a Nerfstudio model meant for faster and better NeRF implementation on you datasets. Check of [NeRFStudio](https://docs.nerf.studio/) for instructions on running. We have run Nerfacto for Wifiroom and Fern Datasets, again whose outputs are present in the [output_db](https://github.com/AnirudhG07/NeRF-UMC203/releases/tag/outputs_db) Release.
+
+## Conclusion
+
+We have successfully implemented the NeRF algorithm and run it on our datasets. We have also run Gaussian Splatting and Nerfacto on the datasets. The results are satisfactory and we have also compared the performance of the models using PSNR metric. The results are promising and we can see that the models are able to generate high quality 3D scenes from 2D images.
+
+## Project Members
+
+- Anirudh Gupta
+- Saksham Agrawal
+- Shivey Ravi Guttal
+- Aditya Arsh
