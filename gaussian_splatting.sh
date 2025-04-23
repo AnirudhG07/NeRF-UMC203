@@ -2,13 +2,16 @@
 # Important, This assumes Cuda and pytorch version are compatible. Worst case have both the latest and things should work.
 #
 # Git cloning
-git clone https://graphdeco-inria/gaussian-splatting.git --recursive
+git clone https://github.com/graphdeco-inria/gaussian-splatting.git --recursive
+
+cd gaussian-splatting
 
 # Environment init
 uv venv --python 3.10
 uv init
 
 # Requirements add
+# Use requirements.txt of this repo
 uv pip install -r requirements.txt
 ## Requirements of submodules
 uv pip install torch # Just do it
