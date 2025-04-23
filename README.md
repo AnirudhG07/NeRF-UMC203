@@ -35,6 +35,8 @@ uv init
 uv pip install -r requirements.txt
 ```
 
+Note that NeRF code in our repo is for tensorflow version 2.* since we have fixed all the deprications of v1.* present in the original repository.
+
 3. Now you can source the python `.venv` environment using the below command -
 
 ```bash
