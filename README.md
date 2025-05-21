@@ -133,7 +133,7 @@ We have successfully implemented the NeRF algorithm and run it on our datasets. 
 
 ## Project Members
 
-- Anirudh Gupta
-- Saksham Agrawal
+- <a href=“https://github.com/AnirudhG07”>Anirudh Gupta</a>
+- <a href=“https://github.com/Saksham810”>Saksham Agrawal</a>
 - Shivey Ravi Guttal
 - Aditya Arsh
